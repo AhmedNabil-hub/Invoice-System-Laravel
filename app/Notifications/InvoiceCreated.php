@@ -3,9 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramChannel;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class InvoiceCreated extends Notification
 {
@@ -21,7 +23,7 @@ class InvoiceCreated extends Notification
 
 	public function via($notifiable)
 	{
-		return ['database'];
+		return [TelegramChannel::class, 'database'];
 	}
 
 
@@ -42,4 +44,21 @@ class InvoiceCreated extends Notification
 			'title' => $this->data['title'],
 		];
 	}
+
+	public function toTelegram($notifiable)
+  {
+		$url = url('/invoices/' . $this->data['invoice_id']);
+
+		return TelegramMessage::create()
+			// Optional recipient user id.
+			->to('626602774')
+			// Markdown supported.
+			->content("Hello there!\nYour invoice has been *Created*")
+
+			// (Optional) Blade template for the content.
+			// ->view('notification', ['url' => $url])
+
+			// (Optional) Inline Buttons
+			->button('View Invoice', $url);
+  }
 }
