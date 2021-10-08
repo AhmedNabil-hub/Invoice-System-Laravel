@@ -16,6 +16,7 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\UpdateInvoicePaymentRequest;
+use App\Notifications\InvoiceDeleted;
 
 class InvoiceController extends Controller
 {
@@ -71,7 +72,7 @@ class InvoiceController extends Controller
 			'user_id' => $invoice->user->id,
 		];
 
-		
+
 		Notification::send(
 			User::role('superadmin')->get(),
 			new InvoiceCreated($notificationData)
@@ -135,6 +136,17 @@ class InvoiceController extends Controller
 	public function destroy(Invoice $invoice)
 	{
 		$invoice->delete();
+
+		$notificationData = [
+			'invoice_id' => $invoice->id,
+			'title' => "Invoice with number {$invoice->invoice_number} deleted",
+			'user_id' => $invoice->user->id,
+		];
+
+		Notification::send(
+			User::role('superadmin')->get(),
+			new InvoiceDeleted($notificationData)
+		);
 
 		return redirect()->route('invoices.index');
 	}
