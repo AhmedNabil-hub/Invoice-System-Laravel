@@ -40,7 +40,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title mg-b-0">Invoices Table</h4>
 						<a class="btn btn-primary btn-icon" href="{{ route('invoices.index') }}">
-                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-right"></i>
               </a>
           </div>
         </div>

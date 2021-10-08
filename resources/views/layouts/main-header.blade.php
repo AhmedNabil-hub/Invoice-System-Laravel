@@ -113,7 +113,7 @@
                 </div>
               </div>
             </div>
-            <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Profile</a>
+            <a class="dropdown-item" href="{{ route('users.show', auth()->id()) }}"><i class="bx bx-user-circle"></i>Profile</a>
             <a class="dropdown-item" href="#"
               onclick="event.preventDefault();document.getElementById('logoutform').submit()"><i
                 class="bx bx-log-out"></i> Sign Out</a>

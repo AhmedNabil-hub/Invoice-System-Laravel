@@ -7,7 +7,6 @@ use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Support\Arr;
-// use App\Events\InvoiceCreated;
 use App\Exports\InvoiceExport;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\InvoiceAdded;
@@ -66,17 +65,13 @@ class InvoiceController extends Controller
 			'invoice_id' => $invoice->id
 		]);
 
-		Notification::send(
-			auth()->user(),
-			new InvoiceAdded($invoice->id)
-		);
-
 		$notificationData = [
 			'invoice_id' => $invoice->id,
 			'title' => 'New invoice created',
 			'user_id' => $invoice->user->id,
 		];
 
+		
 		Notification::send(
 			User::role('superadmin')->get(),
 			new InvoiceCreated($notificationData)

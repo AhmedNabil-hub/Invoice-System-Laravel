@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Section;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,6 +13,7 @@ class HomeController extends Controller
 	{
 		$this->middleware('auth');
 	}
+
 
 
 	public function index()

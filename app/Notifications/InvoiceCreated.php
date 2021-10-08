@@ -23,17 +23,20 @@ class InvoiceCreated extends Notification
 
 	public function via($notifiable)
 	{
-		return [TelegramChannel::class, 'database'];
+		return [TelegramChannel::class, 'database', 'mail'];
 	}
 
 
-	// public function toMail($notifiable)
-	// {
-	// 	return (new MailMessage)
-	// 		->line('The introduction to the notification.')
-	// 		->action('Notification Action', url('/'))
-	// 		->line('Thank you for using our application!');
-	// }
+	public function toMail($notifiable)
+	{
+		$url = url('/invoices/' . $this->data['invoice_id']);
+
+		return (new MailMessage)
+			->subject('Invoice Created')
+			->line('New invoice has been added')
+			->action('Show invoice', $url)
+			->line('Thank you for using our application!');
+	}
 
 
 	public function toDatabase($notifiable)
@@ -52,11 +55,9 @@ class InvoiceCreated extends Notification
 		return TelegramMessage::create()
 			// Optional recipient user id.
 			->to('626602774')
+
 			// Markdown supported.
 			->content("Hello there!\nYour invoice has been *Created*")
-
-			// (Optional) Blade template for the content.
-			// ->view('notification', ['url' => $url])
 
 			// (Optional) Inline Buttons
 			->button('View Invoice', $url);
