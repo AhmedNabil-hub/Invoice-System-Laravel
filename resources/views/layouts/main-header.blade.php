@@ -20,22 +20,22 @@
     </div>
     <div class="main-header-right">
       <div class="nav">
-				@if (Cookie::get('lang') == 'en')
-					<a href="#" class="d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false"
-            onclick="<?php $lang = 'ar'; ?> event.preventDefault();document.getElementById('change-lang').submit()">
-            <span class="avatar country-Flag mr-0 align-self-center bg-transparent">
-              AR
-            </span>
-          </a>
-				@else
+				@if (Cookie::get('lang') == 'ar')
 					<a href="#" class="d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false"
             onclick="<?php $lang = 'en'; ?> event.preventDefault();document.getElementById('change-lang').submit()">
             <span class="avatar country-Flag mr-0 align-self-center bg-transparent">
               ENG
             </span>
           </a>
+				@else
+					<a href="#" class="d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false"
+            onclick="<?php $lang = 'ar'; ?> event.preventDefault();document.getElementById('change-lang').submit()">
+            <span class="avatar country-Flag mr-0 align-self-center bg-transparent">
+              AR
+            </span>
+          </a>
 				@endif
-				
+
         <form id="change-lang" action="{{ route('change-lang', $lang) }}" method="POST" style="display: none;">
           {{ csrf_field() }}
         </form>
