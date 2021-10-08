@@ -20,20 +20,25 @@
     </div>
     <div class="main-header-right">
       <div class="nav">
-        <div class=" dropdown nav-itemd-none d-md-flex">
-          <a href="#" class="d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false">
+				@if (Cookie::get('lang') == 'en')
+					<a href="#" class="d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false"
+            onclick="<?php $lang = 'ar'; ?> event.preventDefault();document.getElementById('change-lang').submit()">
+            <span class="avatar country-Flag mr-0 align-self-center bg-transparent">
+              AR
+            </span>
+          </a>
+				@else
+					<a href="#" class="d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false"
+            onclick="<?php $lang = 'en'; ?> event.preventDefault();document.getElementById('change-lang').submit()">
             <span class="avatar country-Flag mr-0 align-self-center bg-transparent">
               ENG
             </span>
           </a>
-          <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
-            <a href="#" class="dropdown-item d-flex ">
-              <span class="avatar  ml-3 align-self-center bg-transparent">
-                AR
-              </span>
-            </a>
-          </div>
-        </div>
+				@endif
+				
+        <form id="change-lang" action="{{ route('change-lang', $lang) }}" method="POST" style="display: none;">
+          {{ csrf_field() }}
+        </form>
       </div>
       <div class="nav nav-item navbar-nav-right ml-auto">
         <div class="dropdown nav-item main-header-notification">
@@ -45,8 +50,8 @@
               <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
             </svg>
             @if (auth()->user()->unreadNotifications->count() > 0)
-							<span class="pulse"></span>
-						@endif
+              <span class="pulse"></span>
+            @endif
           </a>
           <div class="dropdown-menu">
             <div class="menu-header-content bg-primary text-left">
@@ -54,9 +59,10 @@
                 <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">
                   Notifications
                 </h6>
-								@if (auth()->user()->unreadNotifications->count() > 0)
-							<a class="badge badge-pill badge-warning ml-auto my-auto float-right" href="{{ route('mark-read') }}">Mark All Read</a>
-						@endif
+                @if (auth()->user()->unreadNotifications->count() > 0)
+                  <a class="badge badge-pill badge-warning ml-auto my-auto float-right"
+                    href="{{ route('mark-read') }}">Mark All Read</a>
+                @endif
 
               </div>
               <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">
@@ -64,26 +70,29 @@
               </p>
             </div>
             <div class="main-notification-list Notification-scroll">
-							@foreach (auth()->user()->unreadNotifications()->limit(4)->get() as $notification)
-								<a class="d-flex p-3 border-bottom" href="{{ route('invoices.show', $notification->data['invoice_id']) }}">
-									<div class="notifyimg bg-pink">
-										<i class="la la-file-alt text-white"></i>
-									</div>
-									<div class="ml-3">
-										<h5 class="notification-label mb-1">{{ $notification->data['title'] }}</h5>
-										<div class="notification-subtext">Created at {{ $notification->created_at->format('d-M-Y') }}</div>
-									</div>
-									<div class="ml-auto">
-										<i class="las la-angle-right text-right text-muted"></i>
-									</div>
-								</a>
-							@endforeach
+              @foreach (auth()->user()->unreadNotifications()->limit(4)->get()
+    as $notification)
+                <a class="d-flex p-3 border-bottom"
+                  href="{{ route('invoices.show', $notification->data['invoice_id']) }}">
+                  <div class="notifyimg bg-pink">
+                    <i class="la la-file-alt text-white"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="notification-label mb-1">{{ $notification->data['title'] }}</h5>
+                    <div class="notification-subtext">Created at {{ $notification->created_at->format('d-M-Y') }}
+                    </div>
+                  </div>
+                  <div class="ml-auto">
+                    <i class="las la-angle-right text-right text-muted"></i>
+                  </div>
+                </a>
+              @endforeach
             </div>
-						@if (auth()->user()->unreadNotifications->count() > 4)
-							<div class="dropdown-footer">
-              <a href="">VIEW ALL</a>
-            </div>
-						@endif
+            @if (auth()->user()->unreadNotifications->count() > 4)
+              <div class="dropdown-footer">
+                <a href="">VIEW ALL</a>
+              </div>
+            @endif
           </div>
         </div>
         <div class="nav-item full-screen fullscreen-button">
@@ -109,11 +118,14 @@
 							</div>
 							<div class=" ml-3 my-auto">
                   <h6>{{ ucfirst(auth()->user()->name) }}</h6>
-                  <span>{{ ucfirst(auth()->user()->roles->first()->name) }}</span>
+                  <span>{{ ucfirst(
+    auth()->user()->roles->first()->name,
+) }}</span>
                 </div>
               </div>
             </div>
-            <a class="dropdown-item" href="{{ route('users.show', auth()->id()) }}"><i class="bx bx-user-circle"></i>Profile</a>
+            <a class="dropdown-item" href="{{ route('users.show', auth()->id()) }}"><i
+                class="bx bx-user-circle"></i>Profile</a>
             <a class="dropdown-item" href="#"
               onclick="event.preventDefault();document.getElementById('logoutform').submit()"><i
                 class="bx bx-log-out"></i> Sign Out</a>

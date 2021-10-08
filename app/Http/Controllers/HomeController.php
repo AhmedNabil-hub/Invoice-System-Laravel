@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Section;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,12 @@ class HomeController extends Controller
 		$this->middleware('auth');
 	}
 
+	public function setLangCookie(string $lang)
+	{
+		Cookie::queue('lang', $lang, 60*24*30);
 
+		return redirect()->back();
+	}
 
 	public function index()
 	{

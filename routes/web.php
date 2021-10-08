@@ -54,9 +54,11 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('/mark-read', function () {
 		auth()->user()->unreadNotifications->markAsRead();
-
 		return redirect()->back();
 	})->name('mark-read');
+
+	Route::post('/change-lang/{lang}', [HomeController::class, 'setLangCookie'])
+		->name('change-lang');
 });
 
 Route::get('/test/{locale}', function ($locale) {
