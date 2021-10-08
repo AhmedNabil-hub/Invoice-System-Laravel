@@ -26,46 +26,46 @@
       </div>
     </div>
     <ul class="side-menu">
-      <li class="side-item side-item-category">Main</li>
+      <li class="side-item side-item-category">{{ strtoupper(__('mainSidebar.main')) }}</li>
       <li class="slide">
         <a class="side-menu__item" href="{{ route('home') }}">
 					<i class="fas fa-home fa-fw mr-3"></i>
-					<span class="side-menu__label">Home</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.home')) }}</span>
 					{{-- <span class="badge badge-success side-badge">1</span> --}}
 				</a>
       </li>
-      <li class="side-item side-item-category">Admin</li>
+      <li class="side-item side-item-category">{{ strtoupper(__('mainSidebar.admin')) }}</li>
       <li class="slide">
         <a class="side-menu__item" href="{{ route('users.index') }}">
 					<i class="fas fa-users fa-fw mr-3"></i>
-					<span class="side-menu__label">Users</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.users')) }}</span>
 				</a>
       </li>
       <li class="slide">
         <a class="side-menu__item" href="{{ route('roles.index') }}">
 					<i class="fas fa-user-tag fa-fw mr-3"></i>
-					<span class="side-menu__label">Roles</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.roles')) }}</span>
 				</a>
       </li>
 
-      <li class="side-item side-item-category">Manager</li>
+      <li class="side-item side-item-category">{{ strtoupper(__('mainSidebar.manager')) }}</li>
       <li class="slide">
         <a class="side-menu__item" href="{{ route('sections.index') }}">
 					<i class="fas fa-layer-group fa-fw mr-3"></i>
-					<span class="side-menu__label">Sections</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.sections')) }}</span>
 				</a>
       </li><li class="slide">
         <a class="side-menu__item" href="{{ route('products.index') }}">
 					<i class="fas fa-shopping-bag fa-fw mr-3"></i>
-					<span class="side-menu__label">Products</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.sections')) }}</span>
 				</a>
       </li>
 
-      <li class="side-item side-item-category">Employee</li>
+      <li class="side-item side-item-category">{{ strtoupper(__('mainSidebar.employee')) }}</li>
       </li><li class="slide">
         <a class="side-menu__item" href="{{ route('invoices.index') }}">
 					<i class="fas fa-file-alt fa-fw mr-3"></i>
-					<span class="side-menu__label">Invoices</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.invoices')) }}</span>
 				</a>
       </li>
 

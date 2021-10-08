@@ -57,18 +57,8 @@ Route::middleware(['auth'])->group(function () {
 		return redirect()->back();
 	})->name('mark-read');
 
-	Route::post('/change-lang/{lang}', [HomeController::class, 'setLangCookie'])
+	Route::post('/change-lang/{lang}', [HomeController::class, 'changeLang'])
 		->name('change-lang');
-});
-
-Route::get('/test/{locale}', function ($locale) {
-	if (! in_array($locale, ['en', 'ar'])) {
-		abort(400);
-	}
-
-	App::setLocale($locale);
-
-	return view('test');
 });
 
 
