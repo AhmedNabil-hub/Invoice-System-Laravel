@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Filter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
-  use HasFactory;
+  use HasFactory, Filter;
 
 	protected $fillable = [
 		'section_name',

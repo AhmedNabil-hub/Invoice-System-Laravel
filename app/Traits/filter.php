@@ -2,21 +2,14 @@
 
 namespace App\Traits;
 
+use function PHPUnit\Framework\isEmpty;
+
 trait Filter
 {
-  public function scopeFilter($query, $filters)
+  public function scopeSearchFilter($query, $filter)
   {
-		if($filters){
-			foreach($filters as $filter) {
-				if(isset($filter['valuesRange'])) {
-					if(in_array($filter['value'], $filter['valuesRange'])) {
-						$query = $query->where($filter['type'], $filter['value']);
-					}
-				}
-				else {
-					$query = $query->where($filter['type'], $filter['value']);
-				}
-			}
+		if(is_array($filter)){
+			$query = $query->where($filter['type'], 'like', "%{$filter['value']}%");
 		}
 
     return $query;

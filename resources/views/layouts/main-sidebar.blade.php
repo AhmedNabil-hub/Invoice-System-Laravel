@@ -57,7 +57,7 @@
       </li><li class="slide">
         <a class="side-menu__item" href="{{ route('products.index') }}">
 					<i class="fas fa-shopping-bag fa-fw mr-3"></i>
-					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.sections')) }}</span>
+					<span class="side-menu__label">{{ ucfirst(__('mainSidebar.products')) }}</span>
 				</a>
       </li>
 

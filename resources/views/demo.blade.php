@@ -46,6 +46,11 @@
               <i class="typcn typcn-document-add"></i>
             </a>
           </div>
+					<form class="col-6" action="{{ route('api.demo') }}" method="get">
+						<div class="input-group">
+							<input class="form-control mr-3" type="search" name="search_filter" id="search-filter" placeholder="Search section name">
+						</div>
+					</form>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -60,28 +65,6 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($sections as $section)
-                  <tr>
-                    <td class="wd-15p border-bottom-0">{{ $section->id }}</td>
-                    <td class="wd-15p border-bottom-0">{{ $section->section_name }}</td>
-                    <td class="wd-15p border-bottom-0">{{ $section->description }}</td>
-                    <td class="wd-20p border-bottom-0">{{ $section->user->name }}</td>
-                    <td class="wd-20p border-bottom-0">
-                      <div class="btn-icon-list">
-                        <a class="btn btn-success btn-icon ml-2" href="{{ route('sections.edit', $section->id) }}">
-                          <i class="typcn typcn-edit"></i>
-                        </a>
-                        <form action="{{ route('sections.destroy', $section->id) }}" method="POST">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-icon">
-                            <i class="typcn typcn-trash"></i>
-                          </button>
-                        </form>
-                      </div>
-                    </td>
-                  </tr>
-                @endforeach
               </tbody>
             </table>
           </div>
@@ -119,4 +102,36 @@
   <!--Internal  Notify js -->
   <script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
   <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
+
+	<script>
+		$(document).ready(function() {
+			function get_sections(sectionName = '') {
+				$.ajax({
+					url: `api/demo/?search_filter=${sectionName}`,
+					type: "GET",
+					dataType: "json",
+					success: function(data) {
+						$('tbody').empty();
+						$.each(data['data'], function(index, section) {
+							$('tbody').append(
+								`<tr>
+									<td class="wd-15p border-bottom-0">${section.id}</td>
+									<td class="wd-15p border-bottom-0">${section.section_name}</td>
+									<td class="wd-15p border-bottom-0">${section.description}</td>
+									<td class="wd-20p border-bottom-0">${section.created_by}</td>
+								</tr>`
+							);
+						});
+					},
+        });
+			}
+
+			get_sections();
+
+      $('input[id="search-filter"]').on('input', function() {
+        let sectionName = $(this).val();
+				get_sections(sectionName);
+      });
+    });
+	</script>
 @endsection

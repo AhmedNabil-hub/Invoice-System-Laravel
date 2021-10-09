@@ -57,7 +57,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/change-lang/{lang}', [HomeController::class, 'changeLang'])
 		->name('change-lang');
 
-	Route::get('/demo', [SectionController::class, 'index']);
+	Route::view('/demo', 'demo')
+		->name('sections.demo');
 });
 
 
