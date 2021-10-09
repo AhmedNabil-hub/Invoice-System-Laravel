@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\InvoiceCreated;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
@@ -10,7 +8,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
-use Illuminate\Support\Facades\Notification;
 
 Auth::routes();
 
@@ -59,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::post('/change-lang/{lang}', [HomeController::class, 'changeLang'])
 		->name('change-lang');
+
+	Route::get('/demo', [SectionController::class, 'index']);
 });
 
 
